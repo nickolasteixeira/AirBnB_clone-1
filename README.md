@@ -53,3 +53,12 @@ from the root directory.
 ## Bugs
 
 + No known bugs at this time.
+
+## Original Author
+
+[Steven Garcia](https://github.com/stvngrcia)
+
+## Contributors
+
+[Nickolas Teixeira](https://github.com/nickolasteixeira)
+[Pamela Maupin](https://github.com/maupinpamela)
