@@ -14,6 +14,16 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+classes = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "Place": Place,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Review": Review
+}
+
 
 class HBNBCommand(cmd.Cmd):
     '''
@@ -44,11 +54,30 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             args = shlex.split(args)
-            new_instance = eval(args[0])()
+            new_dict = {}
+
+            for ele in args[1:]:
+                new_arg = ele.split('=')
+                new_dict[new_arg[0]] = new_arg[1]
+
+            new_instance = classes[(args[0])]()
+
+            for k, v in new_dict.items():
+                if "_" in v:
+                    v = v.replace("_", " ")
+                else:
+                    try:
+                        v = eval(v)
+                    except BaseException:
+                        pass
+
+                setattr(new_instance, k, v)
+
             new_instance.save()
             print(new_instance.id)
 
-        except:
+        except Exception as e:
+            print(e)
             print("** class doesn't exist **")
 
     def do_show(self, args):
@@ -124,7 +153,7 @@ class HBNBCommand(cmd.Cmd):
             return
         for key, val in objects.items():
             if len(args) != 0:
-                if type(val) is eval(args):
+                if isinstance(val, eval(args)):
                     obj_list.append(val)
             else:
                 obj_list.append(val)
@@ -193,7 +222,7 @@ class HBNBCommand(cmd.Cmd):
             return
         for key, val in objects.items():
             if len(args) != 0:
-                if type(val) is eval(args):
+                if isinstance(val, eval(args)):
                     obj_list.append(val)
             else:
                 obj_list.append(val)
@@ -213,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
             cmd_arg = args[0] + " " + args[2]
             func = functions[args[1]]
             func(cmd_arg)
-        except:
+        except BaseException:
             print("*** Unknown syntax:", args[0])
 
 
