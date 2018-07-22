@@ -67,3 +67,4 @@ class FileStorage:
                 del FileStorage.__objects[key]
                 self.save()
                 return
+
