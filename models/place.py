@@ -4,7 +4,7 @@
 '''
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -22,3 +22,13 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    reviews = relationship(
+        "Review",
+        backref='place',
+        cascade='all, delete-orphan')
+
+    @property
+    def reviews(self):
+        ''' Getters for properties'''
+        get_all = models.storage.all('Reviews')
+        return [obj for obj in get_all if obj.place_id == self.id]
