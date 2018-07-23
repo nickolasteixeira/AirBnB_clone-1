@@ -10,6 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class BaseModel:
     '''
         Base class for other classes to be used for the duration.
@@ -67,7 +68,7 @@ class BaseModel:
         cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         if '_sa_instance_state' in cp_dct:
             cp_dct.pop('_sa_instance_state', None)
-        return (cp_dct) 
+        return (cp_dct)
 
     def delete(self):
         '''

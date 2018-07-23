@@ -8,18 +8,20 @@ from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 import models
 
+
 class State(BaseModel, Base):
     '''
         Implementation for the State.
     '''
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref='state', cascade='all, delete-orphan')
+    cities = relationship(
+        "City",
+        backref='state',
+        cascade='all, delete-orphan')
 
     @property
     def cities(self):
         ''' '''
         get_all = models.storage.all('City')
-        return [obj for obj in get_all if obj.state_id == self.id] 
-             
-        
+        return [obj for obj in get_all if obj.state_id == self.id]
