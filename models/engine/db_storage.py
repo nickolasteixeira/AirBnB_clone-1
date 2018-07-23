@@ -24,8 +24,8 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        '''
-            initializing DBStorage object
+        '''initializing DBStorage object
+
         '''
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(
@@ -40,11 +40,11 @@ class DBStorage:
         self.__session = Session()
 
         if getenv('HBNB_ENV') == 'test':
-            # could be User.__table__.drop(self.__engine)
             getenv('HBNB_MYSQL_USER').__table__.drop(self.__engine)
 
     def all(self, cls=None):
         '''
+            Gets all the queries associated with the class
 
         '''
         new_key = {}
@@ -62,20 +62,20 @@ class DBStorage:
         return new_key
 
     def new(self, obj):
-        ''' '''
+        ''' Adds a new obj to the database'''
         self.__session.add(obj)
 
     def save(self):
-        ''' '''
+        ''' Saves your current session'''
         self.__session.commit()
 
     def delete(self, obj=None):
-        ''' '''
+        ''' Deletes the current object'''
         if obj:
             self.__session.delete(obj)
 
     def reload(self):
-        ''' '''
+        ''' Reloads the engine'''
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)

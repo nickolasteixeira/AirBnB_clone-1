@@ -8,6 +8,7 @@ import models
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
+
 Base = declarative_base()
 
 
@@ -16,13 +17,17 @@ class BaseModel:
         Base class for other classes to be used for the duration.
     '''
     id = Column(String(60), unique=True, primary_key=True, nullable=False)
-    create_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    update_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    create_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    update_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         '''
             Initialize public instance attributes.
         '''
+        for key, val in kwargs.items():
+            if "__class__" not in key:
+                setattr(self, key, val)
+
         if (len(kwargs) == 0):
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -32,9 +37,6 @@ class BaseModel:
                                                      "%Y-%m-%dT%H:%M:%S.%f")
             kwargs["updated_at"] = datetime.strptime(kwargs["updated_at"],
                                                      "%Y-%m-%dT%H:%M:%S.%f")
-            for key, val in kwargs.items():
-                if "__class__" not in key:
-                    setattr(self, key, val)
 
     def __str__(self):
         '''
@@ -54,8 +56,8 @@ class BaseModel:
         '''
             Update the updated_at attribute with new.
         '''
-        models.storage.new(self)
         self.updated_at = datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):

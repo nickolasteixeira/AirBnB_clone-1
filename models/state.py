@@ -22,6 +22,6 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-        ''' '''
+        '''Getter for cities'''
         get_all = models.storage.all('City')
         return [obj for obj in get_all if obj.state_id == self.id]
