@@ -54,6 +54,7 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
+
     def delete(self, obj=None):
         '''
             Deletes the object from the filestorage

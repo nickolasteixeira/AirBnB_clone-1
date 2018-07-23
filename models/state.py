@@ -2,8 +2,11 @@
 '''
     Implementation of the State class
 '''
-
 from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer
+from sqlalchemy.orm import relationship
+from models.base_model import BaseModel, Base
+import models
 
 class State(BaseModel, Base):
     '''
@@ -11,3 +14,12 @@ class State(BaseModel, Base):
     '''
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
+    cities = relationship("City", backref='state', cascade='all, delete-orphan')
+
+    @property
+    def cities(self):
+        ''' '''
+        get_all = models.storage.all('City')
+        return [obj for obj in get_all if obj.state_id == self.id] 
+             
+        
