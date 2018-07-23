@@ -37,7 +37,7 @@ class BaseModel:
             for key, val in kwargs.items():
                 if "__class__" not in key:
                     setattr(self, key, val)
-        
+
     def __str__(self):
         '''
             Return string representation of BaseModel class
