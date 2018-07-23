@@ -52,6 +52,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
+        
         try:
             args = shlex.split(args)
             new_dict = {}
@@ -77,7 +78,6 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.id)
 
         except Exception as e:
-            print(e)
             print("** class doesn't exist **")
 
     def do_show(self, args):
