@@ -34,13 +34,15 @@ class DBStorage:
                 getenv('HBNB_MYSQL_HOST'),
                 getenv('HBNB_MYSQL_DB')
             ), pool_pre_ping=True)
-
+        
+        
         Base.metadata.create_all(self.__engine)
+        if getenv('HBNB_ENV') == 'test':
+            Base.metadata.drop_all(self.__engine)    
+    
         Session = sessionmaker(self.__engine)
         self.__session = Session()
 
-        if getenv('HBNB_ENV') == 'test':
-            getenv('HBNB_MYSQL_USER').__table__.drop(self.__engine)
 
     def all(self, cls=None):
         '''
