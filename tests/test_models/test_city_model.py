@@ -14,6 +14,7 @@ class TestUser(unittest.TestCase):
         Testing User class
     '''
 
+    @classmethod
     def setUpClass(cls):
         '''
             setup instances for each test
@@ -26,7 +27,7 @@ class TestUser(unittest.TestCase):
         '''
             tests that the City class Inherits from BaseModel
         '''
-        self.assertIsInstance(new_city, BaseModel)
+        self.assertIsInstance(self.new_city, BaseModel)
 
     def test_User_attributes(self):
         self.assertTrue("state_id" in self.new_city.__dir__())
@@ -43,5 +44,5 @@ class TestUser(unittest.TestCase):
         '''
             Test the type of name
         '''
-        name = getattr(new_city, "state_id")
+        name = getattr(self.new_city, "state_id")
         self.assertIsInstance(name, str)

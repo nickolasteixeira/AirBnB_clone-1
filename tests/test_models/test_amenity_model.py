@@ -13,11 +13,12 @@ class TestAmenity(unittest.TestCase):
     '''
         Testing Amenity class
     '''
+    @classmethod
     def setUpClass(cls):
         '''
             setup class instance
         '''
-        cls.new_amenity = Amentity()
+        cls.new_amenity = Amenity()
         cls.new_amenity.name = "amenity"
 
     def test_Amenity_inheritence(self):

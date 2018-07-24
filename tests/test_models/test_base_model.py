@@ -16,7 +16,7 @@ class TestBase(unittest.TestCase):
         Testing the base class model.
     '''
 
-
+    @classmethod
     def setUpClass(cls):
         '''
             Initializing instance for class
@@ -36,7 +36,7 @@ class TestBase(unittest.TestCase):
             Checks that the ids between two instances are different.
         '''
         meow_model = BaseModel()
-        self.assertNotEqual(cls.new_model.id, meow_model.id)
+        self.assertNotEqual(self.my_model.id, meow_model.id)
 
     def test_name(self):
         '''

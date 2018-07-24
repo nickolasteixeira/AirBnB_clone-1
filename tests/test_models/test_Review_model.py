@@ -13,7 +13,7 @@ class TestReview(unittest.TestCase):
     '''
         Testing Review class
     '''
-
+    @classmethod
     def setUpClass(cls):
         cls.new_review = Review()
         cls.new_review.place_id = '11111'
@@ -24,7 +24,7 @@ class TestReview(unittest.TestCase):
         '''
             tests that the Review class Inherits from BaseModel
         '''
-        self.assertIsInstance(new_review, BaseModel)
+        self.assertIsInstance(self.new_review, BaseModel)
 
     def test_Review_attributes(self):
         '''
