@@ -54,12 +54,18 @@ class DBStorage:
                 new_key[key] = obj
         else:
             # ADD ALL CLASSES LATER
-            #all_classes = [State, City, User, Place]
+            all_classes = [State, City, User, Place, Review, Amenity]
+            for a_class in all_classes:
+                for obj in self.__session.query(a_class).all():
+                    key  = str(obj.__class__.__name__) + '.' + str(obj.id)
+                    new_key[key] = obj
+            '''
             for sub_class in Base.__subclasses__():
                 table = self.__session.query(sub_class).all()
                 for obj in table:
                     key = str(obj.__class__.__name__) + "." + str(obj.id)
                     new_key[key] = obj
+            '''
         return new_key
 
     def new(self, obj):
