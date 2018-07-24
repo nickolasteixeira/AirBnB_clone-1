@@ -61,9 +61,6 @@ class FileStorage:
         if obj is None:
             return
 
-        for key, val in FileStorage.__objects.items():
-            args = key.split('.')
-            if args[0] == val.__class__.__name__ and args[1] == val.id:
-                del FileStorage.__objects[key]
-                self.save()
-                return
+        key = str(obj.__class__.__name) + '.' + str(obj.id)
+        FileStorage.__objects.pop(key, None)
+        self.save()
