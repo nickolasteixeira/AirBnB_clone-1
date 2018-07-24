@@ -12,24 +12,25 @@ class TestState(unittest.TestCase):
         Test the State class.
     '''
 
+    @classmethod
+    def setUpClass(cls):
+        cls.new_state = State()
+        cls.new_state.name = "California"
+ 
     def test_State_inheritence(self):
         '''
             Test that State class inherits from BaseModel.
         '''
-        new_state = State()
-        self.assertIsInstance(new_state, BaseModel)
+        self.assertIsInstance(self.new_state, BaseModel)
 
     def test_State_attributes(self):
         '''
             Test that State class contains the attribute `name`.
         '''
-        new_state = State()
-        self.assertTrue("name" in new_state.__dir__())
+        self.assertTrue("name" in self.new_state.__dir__())
 
     def test_State_attributes_type(self):
         '''
             Test that State class attribute name is class type str.
         '''
-        new_state = State()
-        name = getattr(new_state, "name")
-        self.assertIsInstance(name, str)
+        self.assertIsInstance(self.new_state.name, str)

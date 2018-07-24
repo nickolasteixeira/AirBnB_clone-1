@@ -16,18 +16,14 @@ class TestBase(unittest.TestCase):
         Testing the base class model.
     '''
 
-    def setUp(self):
-        '''
-            Initializing instance.
-        '''
-        self.my_model = BaseModel()
-        self.my_model.name = "Binita Rai"
 
-    def TearDown(self):
+    def setUpClass(cls):
         '''
-            Removing instance.
+            Initializing instance for class
         '''
-        del self.my_model
+        cls.my_model = BaseModel()
+        cls.my_model.name = "nick"
+    
 
     def test_id_type(self):
         '''
@@ -39,14 +35,14 @@ class TestBase(unittest.TestCase):
         '''
             Checks that the ids between two instances are different.
         '''
-        new_model = BaseModel()
-        self.assertNotEqual(new_model.id, self.my_model.id)
+        meow_model = BaseModel()
+        self.assertNotEqual(cls.new_model.id, meow_model.id)
 
     def test_name(self):
         '''
             Checks that an attribute can be added.
         '''
-        self.assertEqual("Binita Rai", self.my_model.name)
+        self.assertEqual("nick", self.my_model.name)
 
     def test_a_updated_created_equal(self):
         '''
