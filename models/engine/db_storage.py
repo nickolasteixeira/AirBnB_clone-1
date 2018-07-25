@@ -18,7 +18,7 @@ from models.review import Review
 
 class DBStorage:
     '''
-        DBStorage
+        DBStorage class creates engine and a new session
     '''
     __engine = None
     __session = None
@@ -34,15 +34,13 @@ class DBStorage:
                 getenv('HBNB_MYSQL_HOST'),
                 getenv('HBNB_MYSQL_DB')
             ), pool_pre_ping=True)
-        
-        
+
         Base.metadata.create_all(self.__engine)
         if getenv('HBNB_ENV') == 'test':
-            Base.metadata.drop_all(self.__engine)    
-    
+            Base.metadata.drop_all(self.__engine)
+
         Session = sessionmaker(self.__engine)
         self.__session = Session()
-
 
     def all(self, cls=None):
         '''
@@ -59,7 +57,7 @@ class DBStorage:
             all_classes = [State, City, User, Place, Review, Amenity]
             for a_class in all_classes:
                 for obj in self.__session.query(a_class).all():
-                    key  = str(obj.__class__.__name__) + '.' + str(obj.id)
+                    key = str(obj.__class__.__name__) + '.' + str(obj.id)
                     new_key[key] = obj
             '''
             for sub_class in Base.__subclasses__():
