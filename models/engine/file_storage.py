@@ -61,6 +61,6 @@ class FileStorage:
         if obj is None:
             return
 
-        key = str(obj.__class__.__name) + '.' + str(obj.id)
+        key = str(obj.__class__.__name__) + '.' + str(obj.id)
         FileStorage.__objects.pop(key, None)
         self.save()
