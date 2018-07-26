@@ -52,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
-        
+
         try:
             args = shlex.split(args)
             new_dict = {}
@@ -62,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
                 new_dict[new_arg[0]] = new_arg[1]
 
             new_instance = classes[(args[0])]()
-            
+
             for k, v in new_dict.items():
                 if "_" in v:
                     v = v.replace("_", " ")
