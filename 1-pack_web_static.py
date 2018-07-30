@@ -12,5 +12,5 @@ def do_pack():
                                                     n.hour, n.minute, n.second)
     local("mkdir -p versions")
     local("tar -cvzf versions/{} web_static".format(filename))
-    print("web_static packed: versions/{} -> {}".format(filename,
-                                                        stat('versions/' + filename).st_size))
+    print("web_static packed: versions/{} -> {}"
+          .format(filename, stat('versions/' + filename).st_size))
