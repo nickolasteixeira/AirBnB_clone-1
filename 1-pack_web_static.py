@@ -14,3 +14,5 @@ def do_pack():
     local("tar -cvzf versions/{} web_static".format(filename))
     print("web_static packed: versions/{} -> {}"
           .format(filename, stat('versions/' + filename).st_size))
+
+    return "versions/{}".format(filename)
