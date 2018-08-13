@@ -15,7 +15,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-
 class DBStorage:
     '''
         DBStorage class creates engine and a new session
@@ -35,38 +34,40 @@ class DBStorage:
                 getenv('HBNB_MYSQL_DB')
             ), pool_pre_ping=True)
 
-        Base.metadata.create_all(self.__engine)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
-        Session = sessionmaker(self.__engine)
-        self.__session = Session()
 
     def all(self, cls=None):
         '''
             Gets all the queries associated with the class
 
         '''
-        new_key = {}
+        new_dict = {}
+        objs = None
+        if cls:
+            if cls in models.classes:
+                cls = models.classes[cls]
+                objs = self.__session.query(cls).all() 
+        else:
+            objs = self.__session.query(User, State, City, Place).al()
+
+        for obj in objs:
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            new_dict[key] = obj
+        return new_dict;
+        '''
         if cls:
             for obj in self.__session.query(cls).all():
                 key = str(obj.__class__.__name__) + "." + str(obj.id)
                 new_key[key] = obj
         else:
-            # ADD ALL CLASSES LATER
             all_classes = [State, City, User, Place, Review, Amenity]
             for a_class in all_classes:
                 for obj in self.__session.query(a_class).all():
                     key = str(obj.__class__.__name__) + '.' + str(obj.id)
                     new_key[key] = obj
-            '''
-            for sub_class in Base.__subclasses__():
-                table = self.__session.query(sub_class).all()
-                for obj in table:
-                    key = str(obj.__class__.__name__) + "." + str(obj.id)
-                    new_key[key] = obj
-            '''
-        return new_key
+        '''
 
     def new(self, obj):
         ''' Adds a new obj to the database'''
@@ -87,3 +88,11 @@ class DBStorage:
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(session_factory)
+
+    def close(self):
+        '''
+            Removes the session
+        '''
+        if self.__session:
+            self.__session.close()
+

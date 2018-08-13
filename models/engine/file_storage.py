@@ -17,7 +17,12 @@ class FileStorage:
         '''
             Return the dictionary
         '''
-        return self.__objects
+        if not cls:
+            return self.__objects
+        else:
+            n_obj = {obj:key for obj, key in self.__objects.items()
+                   if type(key) == cls}
+            return n_obj
 
     def new(self, obj):
         '''
@@ -64,3 +69,9 @@ class FileStorage:
         key = str(obj.__class__.__name__) + '.' + str(obj.id)
         FileStorage.__objects.pop(key, None)
         self.save()
+
+    def close(self):
+        '''
+            Reloads the object from the filestorage
+        '''
+        self.reload()
