@@ -29,6 +29,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            models.storage.new(self)
         else:
             if kwargs.get('created_at'):
                 kwargs["created_at"] = datetime.strptime(
@@ -77,8 +78,11 @@ class BaseModel:
         '''
         cp_dct = dict(self.__dict__)
         cp_dct['__class__'] = self.__class__.__name__
-        cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
-        cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+       
+        if 'updated_at' in cp_dct:
+            cp_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        if 'created_at' in cp_dct:
+            cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         if '_sa_instance_state' in cp_dct:
             cp_dct.pop('_sa_instance_state', None)
         return (cp_dct)
