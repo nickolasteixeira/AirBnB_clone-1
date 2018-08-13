@@ -7,6 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from os import getenv
 
+
 class User(BaseModel, Base):
     '''
         Definition of the User class

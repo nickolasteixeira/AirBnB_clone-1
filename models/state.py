@@ -9,6 +9,7 @@ from models.base_model import BaseModel, Base
 import models
 from os import getenv
 
+
 class State(BaseModel, Base):
     '''
         Implementation for the State.
@@ -25,8 +26,7 @@ class State(BaseModel, Base):
         def cities(self):
             '''Getter for cities'''
             cities = [v for k, v in models.storage.all().items()
-                        if 'City' in k and v.state_id == self.id]
+                      if 'City' in k and v.state_id == self.id]
             return cities
             #get_all = models.storage.all('City').items()
-            #return [obj for obj in get_all if obj.state_id == self.id]
-
+            # return [obj for obj in get_all if obj.state_id == self.id]
