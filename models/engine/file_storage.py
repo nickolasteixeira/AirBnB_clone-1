@@ -20,8 +20,8 @@ class FileStorage:
         if not cls:
             return self.__objects
         else:
-            n_obj = {obj:key for obj, key in self.__objects.items()
-                   if type(key) == cls}
+            n_obj = {obj: key for obj, key in self.__objects.items()
+                     if isinstance(key, cls)}
             return n_obj
 
     def new(self, obj):

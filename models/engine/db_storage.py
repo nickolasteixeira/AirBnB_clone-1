@@ -15,6 +15,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class DBStorage:
     '''
         DBStorage class creates engine and a new session
@@ -37,7 +38,6 @@ class DBStorage:
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
-
     def all(self, cls=None):
         """returns a dictionary
         Returns:
@@ -46,7 +46,7 @@ class DBStorage:
         obj = {}
         clss = [value for key, value in models.classes.items()]
         if cls:
-            if type(cls) == str:
+            if isinstance(cls, str):
                 cls = models.classes[cls]
             clss = [cls]
         for one_class in clss:
@@ -81,4 +81,3 @@ class DBStorage:
         '''
         if self.__session:
             self.__session.close()
-
