@@ -28,5 +28,3 @@ class State(BaseModel, Base):
             cities = [v for k, v in models.storage.all().items()
                       if 'City' in k and v.state_id == self.id]
             return cities
-            #get_all = models.storage.all('City').items()
-            # return [obj for obj in get_all if obj.state_id == self.id]
