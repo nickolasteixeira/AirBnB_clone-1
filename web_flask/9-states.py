@@ -15,28 +15,33 @@ app.url_map.strict_slashes = False
 @app.route('/states_list')
 def states_list():
     '''list all states'''
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        states = storage.all(State).values()
-    else:
-        states = storage.all(State).values()
+    states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
 
 @app.route('/states/<id>')
 def states_id(id):
     ''' lists all ids associated with id'''
-    if getenv('HBNB-TYPE_STORAGE') == 'db':
-        states = storage.all(State)
-    else:
-        states = storage.all(State)
-
+    states = storage.all(State)
+    print(states)
     key = "State.{}".format(id)
     if key in states:
         state = states[key]
     else:
         state = None
 
+    print(state)
     return render_template('9-states.html', state=state)
+
+
+@app.route('/cities_by_states')
+def cities_list():
+    '''list all states and cities'''
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        states = storage.all(State).values()
+    else:
+        states = storage.all(State).values()
+    return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
