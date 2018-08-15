@@ -23,14 +23,12 @@ def states_list():
 def states_id(id):
     ''' lists all ids associated with id'''
     states = storage.all(State)
-    print(states)
     key = "State.{}".format(id)
     if key in states:
         state = states[key]
     else:
         state = None
 
-    print(state)
     return render_template('9-states.html', state=state)
 
 
