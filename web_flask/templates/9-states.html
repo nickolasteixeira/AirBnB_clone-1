@@ -5,7 +5,7 @@
   </HEAD>
   <BODY>
   {% if state is not none %}
-    <H1>States: {{ state|attr("name") }}</H1>
+    <H1>State: {{ state|attr("name") }}</H1>
     <H3>Cities:</H3>
     <UL>
       {% for city in state|attr("cities")|sort(attribute="name") %}
