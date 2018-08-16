@@ -53,7 +53,7 @@ class DBStorage:
             for value in self.__session.query(one_class):
                 key = str(value.__class__.__name__) + "." + str(value.id)
                 obj[key] = value
-        return obj 
+        return obj
 
     def new(self, obj):
         ''' Adds a new obj to the database'''
